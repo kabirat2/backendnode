@@ -3,35 +3,27 @@ const ErrorHandler = (err, req, res, next) => {
 
   switch (statusCode) {
     case 400:
-      res.json({
-        Title: "Validation Err",
+      res.send({
         message: err.message,
-        stackTrace: err.stack,
+        status: false,
+        title: "Validation Error",
       });
       break;
     case 401:
-      res.json({
-        Title: "Unauthorised",
+      res.send({
         message: err.message,
-        stackTrace: err.stack,
-      });
-    case 403:
-      res.json({
-        Title: "Forbiden",
-        message: err.message,
-        stackTrace: err.stack,
+        status: false,
+        title: "UnAuthorised Access",
       });
     case 404:
-      res.json({
-        Title: "NON FOUND",
-        message: err.message,
-        stackTrace: err.stack,
-      });
-      case 500 : 
-      res.json({ Title : "Server Error",  message : err.message, stackTrace : err.stack})
+      res.send({ message: err.message, status: false, title: "Non Found" });
+    case 500:
+      res.send({ message: err.message, status: false, title: "Server Error" });
+
     default:
+      console.log("No Errors Workin tree clean")
       break;
   }
 };
 
-module.exports = ErrorHandler;
+module.exports = ErrorHandler
